@@ -3,6 +3,7 @@ from selenium import webdriver
 
 
 class StudentTestCase(LiveServerTestCase):
+
     def setUp(self):
         self.browser = webdriver.Firefox()
         self.browser.implicitly_wait(2)
