@@ -1,5 +1,7 @@
 from django.test import TestCase, RequestFactory
 
+from django.db.models.query import QuerySet
+
 from solos.views import index
 
 
@@ -17,3 +19,18 @@ class IndexViewTestCase(TestCase):
         with self.assertTemplateUsed('solos/index.html'):
             response = index(request)
             self.assertEqual(response.status_code, 200)
+
+    def test_index_view_returns_solos(self):
+        """
+        Test that the index view will attempt to return
+        solos if query parameters exist
+        :return:
+        """
+        response = self.client.get(
+            '/',
+            {'instrument': 'drums'}
+        )
+        self.assertIs(
+            type(response.context['solos']),
+            QuerySet
+        )
