@@ -12,5 +12,5 @@ class SolosURLsTestCase(TestCase):
         correct view function
         :return:
         """
-        root = resolve('/')
+        root = resolve('/solos/')
         self.assertEqual(root.func, index)
