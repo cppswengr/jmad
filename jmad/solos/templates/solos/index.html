@@ -14,6 +14,9 @@
 
     </form>
 
-    <div class="jmad-search-result"></div>
-    <div class="jmad-search-result"></div>
-    <div class="jmad-search-result"></div>
+    {% for solo in solos %}
+        <div class="jmad-search-result">
+            {{ solo.track }}: {{ solo.artist }} on
+            {{ solo.instrument }}
+        </div>
+    {% endfor %}
