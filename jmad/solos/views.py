@@ -1,5 +1,10 @@
 from django.shortcuts import render_to_response
+from django.views.generic.detail import DetailView
+
 from .models import Solo
+
+class SoloDetailView(DetailView):
+    pass
 
 
 def index(request):

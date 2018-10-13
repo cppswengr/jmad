@@ -2,7 +2,7 @@ from django.test import TestCase, RequestFactory
 
 from django.db.models.query import QuerySet
 
-from solos.views import index
+from solos.views import index, SoloDetailView
 
 from solos.models import Solo
 
