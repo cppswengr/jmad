@@ -10,7 +10,7 @@ def index(request):
 
         if request.GET.get('instrument', None):
             solos_queryset = solos_queryset.filter(
-                instrument=request.Get.get(
+                instrument=request.GET.get(
                     'instrument',
                     None
                 )
@@ -18,7 +18,7 @@ def index(request):
 
         if request.GET.get('artist', None):
             solos_queryset = solos_queryset.filter(
-                artist=request.Get.get('artist', None)
+                artist=request.GET.get('artist', None)
             )
 
         context['solos'] = solos_queryset
