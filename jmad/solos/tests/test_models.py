@@ -17,4 +17,4 @@ class SoloModelTestCase(TestCase):
         """
         Test the basic functionality of Solo
         """
-        self.assertEqual(self.solo.artist, 'Peterson')
+        self.assertEqual(self.solo.artist, 'Oscar Peterson')

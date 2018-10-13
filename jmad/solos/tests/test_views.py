@@ -4,10 +4,24 @@ from django.db.models.query import QuerySet
 
 from solos.views import index
 
+from solos.models import Solo
+
 
 class IndexViewTestCase(TestCase):
     def setUp(self):
         self.factory = RequestFactory()
+
+        self.drum_solo = Solo.objects.create(
+            instrument='drums',
+            artist='Rich',
+            track='Bugle Call Rag'
+        )
+
+        self.bass_solo = Solo.objects.create(
+            instrument='saxophone',
+            artist='Coltrane',
+            track='Mr. PC'
+        )
 
     def test_index_view_basic(self):
         """
@@ -27,10 +41,16 @@ class IndexViewTestCase(TestCase):
         :return:
         """
         response = self.client.get(
-            '/',
+            '/solos/',
             {'instrument': 'drums'}
         )
-        self.assertIs(
-            type(response.context['solos']),
-            QuerySet
-        )
+
+        solos = response.context['solos']
+
+        self.assertIs(type(solos), QuerySet)
+        self.assertEqual(len(solos), 1)
+        self.assertEqual(solos[0].artist, 'Rich')
+
+
+
+
