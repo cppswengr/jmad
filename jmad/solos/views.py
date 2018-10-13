@@ -3,8 +3,9 @@ from django.views.generic.detail import DetailView
 
 from .models import Solo
 
+
 class SoloDetailView(DetailView):
-    pass
+    model = Solo
 
 
 def index(request):

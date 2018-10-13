@@ -59,11 +59,11 @@ class IndexViewTestCase(SolosBaseTestCase):
         self.assertEqual(len(solos), 1)
         self.assertEqual(solos[0].artist, 'Rich')
 
-class SoloViewTestCase(TestCase):
+
+class SoloViewTestCase(SolosBaseTestCase):
 
     def setUp(self):
         self.factory = RequestFactory()
-
 
     def test_basic(self):
         """
@@ -74,9 +74,9 @@ class SoloViewTestCase(TestCase):
         """
         request = self.factory.get('/solos/1/')
 
-        response = SoloDetailView.as_view() (
+        response = SoloDetailView.as_view()(
             request,
-            self.drum_solo.pk
+            pk=self.drum_solo.pk
 
         )
 
@@ -86,6 +86,6 @@ class SoloViewTestCase(TestCase):
             'Rich'
         )
 
-        with self.assertTemplateNotUsed('solos/solo_detail.html'):
+        with self.assertTemplateUsed('solos/solo_detail.html'):
             response.render()
 
