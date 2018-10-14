@@ -89,7 +89,6 @@ class StudentTestCase(LiveServerTestCase):
         # He clicks on a search result.
         second_search_results[0].click()
         # import pdb; pdb.set_trace()
-        self.fail('Incomplete Test')
 
         # The solo page has the title, artist and album for
         # this particular solo.
@@ -124,6 +123,7 @@ class StudentTestCase(LiveServerTestCase):
                 '#jmad-end-time').text,
             '4:01'
         )
+        self.fail('Incomplete Test')
 
         # He also sees the start time and end time of the
         # solo.
