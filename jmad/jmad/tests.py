@@ -99,16 +99,15 @@ class StudentTestCase(LiveServerTestCase):
             self.browser.current_url,
             '{}/solos/2/'.format(self.live_server_url)
         )
-
-        self.assertEqual(
-            self.browser.find_element_by_css_selector(
-                '#jmad-artist').text,
-            'Cannonball Adderley'
-        )
         self.assertEqual(
             self.browser.find_element_by_css_selector(
                 '#jmad-track').text,
             'All Blues'
+        )
+        self.assertEqual(
+            self.browser.find_element_by_css_selector(
+                '#jmad-artist').text,
+            'Cannonball Adderley'
         )
         self.assertEqual(
             self.browser.find_element_by_css_selector(

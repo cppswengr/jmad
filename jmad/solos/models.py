@@ -7,6 +7,6 @@ class Solo(models.Model):
     instrument = models.CharField(max_length=50)
     album = models.CharField(max_length=200)
     start_time = models.CharField(max_length=20, blank=True,
-                                  null = True)
+                                  null=True)
     end_time = models.CharField(max_length=20, blank=True,
-                                  null = True)
+                                null=True)

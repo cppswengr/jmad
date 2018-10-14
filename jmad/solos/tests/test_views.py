@@ -62,8 +62,8 @@ class IndexViewTestCase(SolosBaseTestCase):
 
 class SoloViewTestCase(SolosBaseTestCase):
 
-    # def setUp(self):
-    # self.factory = RequestFactory()
+    def setUp(self):
+        self.factory = RequestFactory()
 
     def test_basic(self):
         """

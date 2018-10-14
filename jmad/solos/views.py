@@ -6,6 +6,7 @@ from .models import Solo
 
 class SoloDetailView(DetailView):
     model = Solo
+    template_name = 'solos/solo_detail.html'
 
 
 def index(request):
