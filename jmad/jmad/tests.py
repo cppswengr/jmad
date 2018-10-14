@@ -1,6 +1,6 @@
 from django.test import LiveServerTestCase
 from selenium import webdriver
-from solos.models import Solo
+from solos.models import Solot
 
 
 class StudentTestCase(LiveServerTestCase):
