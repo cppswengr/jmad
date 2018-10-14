@@ -4,6 +4,6 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    # ex: /solos/5/
-    path('<int:pk>/', views.SoloDetailView.as_view(), name='SoloDetailView'),
+    # ex: /solos/recordings/kind-of-blue/all-blues/cannonball-adderley/
+    path('recordings/<str:album>/<str:track>/<str:artist>/', views.SoloDetailView.as_view(), name='SoloDetailView'),
 ]
