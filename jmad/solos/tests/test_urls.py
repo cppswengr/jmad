@@ -12,7 +12,7 @@ class SolosURLsTestCase(TestCase):
         correct view function
         :return:
         """
-        root = resolve('/solos/')
+        root = resolve('/recordings/')
         self.assertEqual(root.func, index)
 
     def test_solo_details_url(self):
@@ -22,7 +22,7 @@ class SolosURLsTestCase(TestCase):
         :return
         """
         solo_detail = resolve(
-            '/solos/recordings/kind-of-blue/all-blues/cannonball-adderley/'
+            '/recordings/kind-of-blue/all-blues/cannonball-adderley/'
         )
 
         self.assertEqual(solo_detail.func.__name__, 'SoloDetailView')

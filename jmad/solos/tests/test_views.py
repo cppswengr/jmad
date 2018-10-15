@@ -6,6 +6,8 @@ from solos.views import index, SoloDetailView
 
 from solos.models import Solo
 
+from albums.models import Album, Track
+
 
 class SolosBaseTestCase(TestCase):
 
@@ -16,16 +18,27 @@ class SolosBaseTestCase(TestCase):
     def setUpClass(cls):
         super().setUpClass()
 
-        cls.drum_solo = Solo.objects.create(
-            instrument='drums',
-            artist='Rich',
-            track='Bugle Call Rag'
+        cls.no_funny_hats = Album.objects.create(
+            name='No Funny Hats', slug='no-funny-hats'
         )
-
-        cls.bass_solo = Solo.objects.create(
-            instrument='saxophone',
-            artist='Coltrane',
-            track='Mr. PC'
+        cls.bugle_call_rag = Track.objects.create(
+            name='Bugle Call Rag', slug='bugle-call-rag',
+            album=cls.no_funny_hats
+        )
+        cls.drum_solo = Solo.objects.create(
+            instrument='drums', artist='Rich',
+            track=cls.bugle_call_rag, slug='rich'
+        )
+        cls.giant_steps = Album.objects.create(
+            name='Giant Steps', slug='giant_steps'
+        )
+        cls.mr_pc = Track.objects.create(
+            name='Mr. PC', slug='mr-pc',
+            album=cls.giant_steps
+        )
+        cls.sax_solo = Solo.objects.create(
+            instrument='saxophone', artist='Coltrane',
+            track=cls.mr_pc, slug='coltrane'
         )
 
 
@@ -36,7 +49,7 @@ class IndexViewTestCase(SolosBaseTestCase):
         Test that index view returns a 200 response and uses
         the correct template
         """
-        request = self.factory.get('/solos/')
+        request = self.factory.get('/recordings/')
 
         with self.assertTemplateUsed('solos/index.html'):
             response = index(request)
@@ -49,7 +62,7 @@ class IndexViewTestCase(SolosBaseTestCase):
         :return:
         """
         response = self.client.get(
-            '/solos/',
+            '/recordings/',
             {'instrument': 'drums'}
         )
 
@@ -72,7 +85,7 @@ class SoloViewTestCase(SolosBaseTestCase):
 
         :return:
         """
-        request = self.factory.get('/solos/1/')
+        request = self.factory.get('/recordings/1/')
 
         response = SoloDetailView.as_view()(
             request,
