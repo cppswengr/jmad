@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import path
-from solos.views import index, SoloDetailView
+# from solos.views import index, SoloDetailView
 
 urlpatterns = [
     path('recordings/', include('solos.urls')),
