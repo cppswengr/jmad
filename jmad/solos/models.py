@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 
 class Solo(models.Model):
@@ -10,3 +11,6 @@ class Solo(models.Model):
                                   null=True)
     end_time = models.CharField(max_length=20, blank=True,
                                 null=True)
+
+    def get_absolute_url(self):
+        pass

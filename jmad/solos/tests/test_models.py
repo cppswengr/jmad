@@ -22,3 +22,14 @@ class SoloModelTestCase(TestCase):
         """
         self.assertEqual(self.solo.artist, 'Oscar Peterson')
         self.assertEqual(self.solo.end_time, '4:06')
+
+    def test_get_absolute_url(self):
+        """
+        Test that we can build a URL for a solo
+        """
+
+        self.assertEqual(
+            self.solo.get_absolute_url(),
+            '/recordings/at-the-stratford-shakespearean-festival/'
+            'falling-in-love-with-love/oscar-peterson/'
+        )
