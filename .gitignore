@@ -207,4 +207,6 @@ Session.vim
 tags
 # Persistent undo
 [._]*.un~
-/.gitignore
+
+# Static files (let's collect them as a part of deployment)
+static/

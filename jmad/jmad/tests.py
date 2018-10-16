@@ -191,7 +191,10 @@ class StudentTestCase(LiveServerTestCase):
 
         # He sees links to Albums, Tracks, and Solos
         albums_links = self.browser. \
+            find_elements_by_link_text('ALBUMS')
+        inner_albums_links = self.browser. \
             find_elements_by_link_text('Albums')
+        albums_links.extend(inner_albums_links)
         self.assertEqual(
             albums_links[0].get_attribute('href'),
             self.live_server_url + '/admin/albums/'
@@ -208,7 +211,10 @@ class StudentTestCase(LiveServerTestCase):
                 self.live_server_url + '/admin/albums/track/'
         )
         solos_links = self.browser. \
+            find_elements_by_link_text('SOLOS')
+        inner_solos_links = self.browser. \
             find_elements_by_link_text('Solos')
+        solos_links.extend(inner_solos_links)
         self.assertEqual(
             solos_links[0].get_attribute('href'),
             self.live_server_url + '/admin/solos/'
