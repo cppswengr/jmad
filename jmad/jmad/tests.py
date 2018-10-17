@@ -286,13 +286,44 @@ class StudentTestCase(LiveServerTestCase):
             'Kind of Blue So What 1'
         )
 
-        self.fail('Incomplete Test')
-
-        # He adds another track, this time on an album that
-        # is not in JMAD yet
+        # He adds another track, this time on an album that is not in
+        # JMAD yet
+        self.browser.find_element_by_link_text('ADD TRACK').click()
+        track_form = self.browser.find_element_by_id('track_form')
+        track_form.find_element_by_name('name'). \
+            send_keys('My Funny Valentine')
+        # After adding the basic Track info, he clicks on the plus
+        # sign to add a new album.
+        track_form.find_element_by_id('add_id_album').click()
+        # The focus shifts to the newly opened window, where he sees
+        # an Album form
+        self.browser.switch_to.window(self.browser.window_handles[1])
+        album_form = self.browser.find_element_by_id('album_form')
+        album_form.find_element_by_name('name').send_keys('Cookin\'')
+        album_form.find_element_by_name('artist'). \
+            send_keys('Miles Davis Quintet')
+        album_form.find_element_by_name('slug').send_keys('cookin')
+        album_form.find_element_by_css_selector(
+            '.submit-row input').click()
 
         # After adding the basic Track info, he clicks on the
         # plus sign to add a new album.
+        # After creating the Album, he goes back to finish the Track
+        self.browser.switch_to.window(self.browser.window_handles[0])
+        track_form = self.browser.find_element_by_id('track_form')
+        track_form.find_element_by_name('track_number'). \
+            send_keys('1')
+        track_form.find_element_by_name('slug'). \
+            send_keys('my-funny-valentine')
+        track_form.find_element_by_css_selector(
+            '.submit-row input').click()
+        self.assertEqual(
+            self.browser.find_elements_by_css_selector(
+                '#result_list tr'
+            )[1].text,
+            'Cookin\' My Funny Valentine 1'
+        )
+        self.fail('Incomplete Test')
 
         # The focus shifts to the newly opened window, where
         # he sees an Album form
