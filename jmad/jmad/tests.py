@@ -56,8 +56,8 @@ class StudentTestCase(LiveServerTestCase):
 
         self.solo4 = Solo.objects.create(
             instrument='trumpet', artist='Miles Davis',
-            track=self.track2,
-            slug='miles-davis'
+            track=self.track2, slug='miles-davis',
+            start_time='1:46', end_time='4:04'
         )
 
         self.album3 = Album.objects.create(
@@ -323,19 +323,25 @@ class StudentTestCase(LiveServerTestCase):
             )[1].text,
             'Cookin\' My Funny Valentine 1'
         )
+
+        # He goes back to the root of the admin site and clicks on
+        # 'Solos'
+        self.browser.find_element_by_css_selector(
+            '#site-name a').click()
+        self.browser.find_elements_by_link_text('Solos')[1].click()
+        # He's sees Solos listed by Album, then Track, then start
+        # time
+        solo_rows = self.browser.find_elements_by_css_selector(
+            '#result_list tr')
+        self.assertEqual(solo_rows[1].text,
+                         'All Blues Miles Davis 1:46-4:04')
+        self.assertEqual(solo_rows[2].text,
+                         'All Blues Cannonball Adderley 4:05-6:04')
+        self.assertEqual(solo_rows[3].text.strip(),
+                         'Waltz for Debby Cannonball Adderley')
+        self.assertEqual(solo_rows[4].text.strip(),
+                         'My Favorite Things John Coltrane')
         self.fail('Incomplete Test')
-
-        # The focus shifts to the newly opened window, where
-        # he sees an Album form
-
-        # After creating the Album, he goes back to finish
-        # the Track
-
-        # He goes back to the root of the admin site and
-        # clicks on 'Solos'
-
-        # He sees Solos listed by Album, then Track, then
-        # start time
 
         # He adds a Solo to a Track that already exists
 
