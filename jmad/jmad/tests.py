@@ -266,8 +266,27 @@ class StudentTestCase(LiveServerTestCase):
         self.assertEqual(track_rows[5].text,
                          'My Favorite Things My Favorite Things -')
 
-        self.fail('Incomplete Test')
         # He adds a track to an album that already exists
+        self.browser.find_element_by_link_text('ADD TRACK').click()
+
+        track_form = self.browser.find_element_by_id('track_form')
+        track_form.find_element_by_name('name').send_keys('So What')
+        track_form.find_element_by_name('album'). \
+            find_elements_by_tag_name('option')[1].click()
+
+        track_form.find_element_by_name('track_number'). \
+            send_keys('1')
+        track_form.find_element_by_name('slug').send_keys('so-what')
+
+        track_form.find_element_by_css_selector(
+            '.submit-row input').click()
+        self.assertEqual(
+            self.browser.find_elements_by_css_selector(
+                '#result_list tr')[1].text,
+            'Kind of Blue So What 1'
+        )
+
+        self.fail('Incomplete Test')
 
         # He adds another track, this time on an album that
         # is not in JMAD yet
