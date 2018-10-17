@@ -328,7 +328,7 @@ class StudentTestCase(LiveServerTestCase):
         # 'Solos'
         self.browser.find_element_by_css_selector(
             '#site-name a').click()
-        self.browser.find_elements_by_link_text('Solos')[1].click()
+        self.browser.find_element_by_link_text('Solos').click()
         # He's sees Solos listed by Album, then Track, then start
         # time
         solo_rows = self.browser.find_elements_by_css_selector(
@@ -338,9 +338,9 @@ class StudentTestCase(LiveServerTestCase):
         self.assertEqual(solo_rows[2].text,
                          'All Blues Cannonball Adderley 4:05-6:04')
         self.assertEqual(solo_rows[3].text.strip(),
-                         'Waltz for Debby Cannonball Adderley')
+                         'Waltz for Debby Cannonball Adderley -')
         self.assertEqual(solo_rows[4].text.strip(),
-                         'My Favorite Things John Coltrane')
+                         'My Favorite Things John Coltrane -')
         self.fail('Incomplete Test')
 
         # He adds a Solo to a Track that already exists

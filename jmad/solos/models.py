@@ -26,3 +26,6 @@ class Solo(models.Model):
             duration_string = '{}-{}'.format(self.start_time,
                                              self.end_time)
             return duration_string
+
+    class Meta:
+        ordering = ['track', 'start_time']
