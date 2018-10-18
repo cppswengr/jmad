@@ -3,10 +3,6 @@ from django.shortcuts import render_to_response
 from .models import Solo
 
 
-# class SoloDetailView(DetailView):
-    # model = Solo
-    # template_name = 'solos/solo_detail.html'
-
 def solo_detail(request, album, track, artist):
     context = {
         'solo': Solo.objects.get(slug=artist, track__slug=track,
@@ -29,11 +25,15 @@ def index(request):
                 )
             )
 
-        if request.GET.get('artist', None):
-            solos_queryset = solos_queryset.filter(
-                artist=request.GET.get('artist', None)
-            )
-
-        context['solos'] = solos_queryset
+        artist_kwarg = request.GET.get('artist', None)
+        if artist_kwarg:
+            solos_queryset = solos_queryset. \
+                filter(artist=artist_kwarg)
+        context = {
+            'solos': solos_queryset,
+        }
+        if context['solos'].count() == 0 and artist_kwarg:
+            context['solos'] = Solo.\
+                get_artist_tracks_from_musicbrainz(artist_kwarg)
 
     return render_to_response('solos/index.html', context)

@@ -1,5 +1,9 @@
 from django.db import models
+
 from django.urls import reverse
+
+import musicbrainzngs as mb
+
 from albums.models import Track
 
 
@@ -12,6 +16,8 @@ class Solo(models.Model):
     end_time = models.CharField(max_length=20, blank=True,
                                 null=True)
     slug = models.SlugField()
+
+    mb.set_useragent('JMAD - http://jmad.us', version='0.0.1')
 
     def get_absolute_url(self):
         return reverse('solo_detail_view', kwargs={
@@ -26,6 +32,10 @@ class Solo(models.Model):
             duration_string = '{}-{}'.format(self.start_time,
                                              self.end_time)
             return duration_string
+
+    @classmethod
+    def get_artist_tracks_from_musicbrainz(cls, artist):
+        return mb.search_artists(artist)
 
     class Meta:
         ordering = ['track', 'start_time']
