@@ -60,7 +60,7 @@ class SoloModelTestCase(TestCase):
         self.assertEqual(self.solo.get_duration(),
                          '1:24-4:06')
 
-    @patch('musicbrainzngs.browse.releases')
+    @patch('musicbrainzngs.browse_releases')
     @patch('musicbrainzngs.search_artists')
     def test_get_artist_tracks_from_musicbrainz(
             self,
@@ -143,7 +143,7 @@ class SoloModelTestCase(TestCase):
             'Jaco Pastorius')
 
         mock_mb_browse_releases.assert_called_with(
-            '12345678-1234-1234-1234-123456789012',
+            '46a6fac0-2e14-4214-b08e-3bdb1cffa5aa',
             includes=['recordings'])
 
         self.assertEqual(len(created_solos), 2)
