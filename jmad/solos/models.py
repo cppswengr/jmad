@@ -58,19 +58,20 @@ class Solo(models.Model):
                 create(name=album_dict['title'],
                        artist=artist,
                        slug=slugify(album_dict['title']))
-        for track_dict in album_dict['medium-list'][0]['track-list']:
-            track = Track.objects.create(
-                album=album,
-                name=track_dict['recording']['title'],
-                track_number=track_dict['position'],
-                slug=slugify(
-                    track_dict['recording']['title']))
-            Solo.objects.create(
-                track=track, artist=artist,
-                instrument=instrument,
-                slug=slugify(artist))
-
-        return Solo.objects.filter(artist=artist)
+            for track_dict in album_dict['medium-list'][0]['track-list']:
+                track = Track.objects.create(
+                    album=album,
+                    name=track_dict['recording']['title'],
+                    track_number=track_dict['position'],
+                    slug=slugify(
+                        track_dict['recording']['title']))
+                Solo.objects.create(
+                    track=track, artist=artist,
+                    instrument=instrument,
+                    slug=slugify(artist))
+        ret_tracks = Solo.objects.filter(artist=artist)
+        return ret_tracks
+        # return Solo.objects.filter(artist=artist)
         # return mb.search_artists(artist)
 
     @classmethod

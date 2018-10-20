@@ -1,16 +1,14 @@
-from django.test import TestCase
-
 from unittest.mock import patch
 
-from solos.models import Solo
+from django.test import TestCase
 
+from solos.models import Solo
 from albums.models import Album, Track
 
 
 class SoloModelTestCase(TestCase):
 
     def setUp(self):
-
         self.album = Album.objects.create(
             name='At the Stratford Shakespearean Festival',
             artist='Oscar Peterson Trio',
@@ -34,7 +32,6 @@ class SoloModelTestCase(TestCase):
         )
 
     def test_solo_basic(self):
-
         """
         Test the basic functionality of Solo
         """
@@ -45,33 +42,22 @@ class SoloModelTestCase(TestCase):
         """
         Test that we can build a URL for a solo
         """
-
         self.assertEqual(
             self.solo.get_absolute_url(),
-            '/recordings/at-the-stratford-shakespearean-festival/'
-            'falling-in-love-with-love/oscar-peterson/'
-        )
+            '/recordings/at-the-stratford-shakespearean-festival/falling-in-love-with-love/oscar-peterson/')
 
     def test_get_duration(self):
         """
         Test that we can print the duration of a Solo
-        :return:
         """
-        self.assertEqual(self.solo.get_duration(),
-                         '1:24-4:06')
+        self.assertEqual(self.solo.get_duration(), '1:24-4:06')
 
     @patch('musicbrainzngs.browse_releases')
     @patch('musicbrainzngs.search_artists')
-    def test_get_artist_tracks_from_musicbrainz(
-            self,
-            mock_mb_search_artists,
-            mock_mb_browse_releases
-    ):
-
+    def test_get_artist_tracks_from_musicbrainz(self, mock_mb_search_artists, mock_mb_browse_releases):
         """
         Test that we can make Solos from the MusicBrainz API
         """
-        # set the return value of the mocke search_artists call
         mock_mb_search_artists.return_value = {
             'artist-list': [
                 {
@@ -79,20 +65,13 @@ class SoloModelTestCase(TestCase):
                     'ext:score': '100',
                     'id': '46a6fac0-2e14-4214-b08e-3bdb1cffa5aa',
                     'tag-list': [
-                        {
-                            'count': '1',
-                            'name': 'jazz fusion'
-                        },
-                        {
-                            'count': '1',
-                            'name': 'bassist'
-                        }
+                        {'count': '1', 'name': 'jazz fusion'},
+                        {'count': '1', 'name': 'bassist'}
                     ]
                 }
             ]
         }
 
-        # setting a couple recorigs to avoid too much nesting
         recording1 = {
             'recording': {
                 'id': '12348765-4321-1234-3421-876543210921',
@@ -100,6 +79,7 @@ class SoloModelTestCase(TestCase):
             },
             'position': '1'
         }
+
         recording2 = {
             'recording': {
                 'id': '15263748-4321-8765-8765-102938475610',
@@ -108,7 +88,6 @@ class SoloModelTestCase(TestCase):
             'position': '6'
         }
 
-        # set the return value of the mocked browse_releases call
         mock_mb_browse_releases.return_value = {
             'release-list': [
                 {
@@ -116,7 +95,6 @@ class SoloModelTestCase(TestCase):
                     'id': '876543212-4321-4321-4321-21987654321',
                     'medium-list': [
                         {
-                            # see above
                             'track-list': [recording1]
                         }
                     ]
@@ -126,28 +104,25 @@ class SoloModelTestCase(TestCase):
                     'id': '43215678-5678-4321-1234-901287651234',
                     'medium-list': [
                         {
-                            # see above
                             'track-list': [recording2]
                         }
                     ]
                 }
             ]
         }
-        print("Just before created_solos=")
-        created_solos = Solo. \
-            get_artist_tracks_from_musicbrainz(
-            'Jaco Pastorius'
-        )
 
-        mock_mb_search_artists.assert_called_with(
-            'Jaco Pastorius')
 
-        mock_mb_browse_releases.assert_called_with(
-            '46a6fac0-2e14-4214-b08e-3bdb1cffa5aa',
-            includes=['recordings'])
+        created_solos = Solo.get_artist_tracks_from_musicbrainz('Jaco Pastorius')
 
+        mock_mb_search_artists.assert_called_with('Jaco Pastorius')
         self.assertEqual(len(created_solos), 2)
-        self.assertEqual(created_solos[0].artist,
-                         'Jaco Pastorius')
-        self.assertEqual(created_solos[1].track.name,
-                         'Donna Lee')
+        self.assertEqual(created_solos[0].artist, 'Jaco Pastorius')
+        self.assertEqual(created_solos[1].track.name, 'Donna Lee')
+
+    def test_get_instrument_from_musicbrainz_tags(self):
+        """
+        Test that we can map tags from MusicBrainz to instruments
+        """
+        tag_list = [{'count': '1', 'name': 'pianist'}, {'count': '1', 'name': 'jazz'}]
+
+        self.assertEqual(Solo.get_instrument_from_musicbrainz_tags(tag_list), 'piano')

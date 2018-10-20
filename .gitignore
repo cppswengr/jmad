@@ -121,6 +121,7 @@ pip-selfcheck.json
 
 # User-specific stuff
 .idea/**/workspace.xml
+.idea/**/dataSources.xml
 .idea/**/tasks.xml
 .idea/**/usage.statistics.xml
 .idea/**/dictionaries
