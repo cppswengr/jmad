@@ -87,7 +87,7 @@ class StudentTestCase(LiveServerTestCase):
         # Steve is a jazz student who would like to find more
         # examples of solos so he can improve his own
         # improvisation. He visits the home page of JMAD.
-        home_page = self.browser.get(self.live_server_url + '/recordings/')
+        home_page = self.browser.get(self.live_server_url + '/solos/')
 
         # He knows he's in the right place because he can see
         # the name of the site in the heading.
@@ -143,7 +143,7 @@ class StudentTestCase(LiveServerTestCase):
         self.assertEqual(
             self.browser.current_url,
             self.live_server_url +
-            '/recordings/kind-of-blue/all-blues/cannonball-adderley/'
+            '/solos/kind-of-blue/all-blues/cannonball-adderley/'
         )
         # he sees the artist...
         self.assertEqual(

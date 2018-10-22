@@ -44,7 +44,7 @@ class SoloModelTestCase(TestCase):
         """
         self.assertEqual(
             self.solo.get_absolute_url(),
-            '/recordings/at-the-stratford-shakespearean-festival/falling-in-love-with-love/oscar-peterson/')
+            '/solos/at-the-stratford-shakespearean-festival/falling-in-love-with-love/oscar-peterson/')
 
     def test_get_duration(self):
         """

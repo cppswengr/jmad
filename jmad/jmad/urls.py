@@ -19,6 +19,6 @@ from django.urls import path
 # from solos.views import index, SoloDetailView
 
 urlpatterns = [
-    path('recordings/', include('solos.urls')),
+    path('solos/', include('solos.urls')),
     path('admin/', admin.site.urls),
 ]

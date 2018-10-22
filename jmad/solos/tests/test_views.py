@@ -51,7 +51,7 @@ class IndexViewTestCase(SolosBaseTestCase):
         Test that index view returns a 200 response and uses
         the correct template
         """
-        request = self.factory.get('/recordings/')
+        request = self.factory.get('/solos/')
 
         with self.assertTemplateUsed('solos/index.html'):
             response = index(request)
@@ -64,7 +64,7 @@ class IndexViewTestCase(SolosBaseTestCase):
         :return:
         """
         response = self.client.get(
-            '/recordings/',
+            '/solos/',
             {'instrument': 'drums'}
         )
 
@@ -85,7 +85,7 @@ class IndexViewTestCase(SolosBaseTestCase):
         mock_solo.artist = 'Jaco Pastorius'
         mock_solos_get_from_mb.return_value = [mock_solo]
 
-        response = self.client.get('/recordings/', {
+        response = self.client.get('/solos/', {
             'instrument': 'Bass',
             'artist': 'Jaco Pastorius'  # not currently in the DB
         })
@@ -107,7 +107,7 @@ class SoloViewTestCase(SolosBaseTestCase):
         :return:
         """
         request = self.factory.get(
-            '/recordings/no-funny-hats/bugle-call-rag/buddy-rich/'
+            '/solos/no-funny-hats/bugle-call-rag/buddy-rich/'
         )
 
         with self.assertTemplateUsed('solos/solo_detail.html'):
