@@ -17,8 +17,21 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import path
 # from solos.views import index, SoloDetailView
+from albums.views import AlbumViewSet
+
+from rest_framework import routers
+
+router = routers.SimpleRouter()
+router.register('albums/', AlbumViewSet)
 
 urlpatterns = [
-    path('solos/', include('solos.urls')),
+    # Admin
     path('admin/', admin.site.urls),
+
+    # API
+    path('api/'), include(router.urls),
+
+    # Apps
+    path('solos/', include('solos.urls')),
+    path('albums/', include('albums.urls')),
 ]
