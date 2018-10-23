@@ -26,10 +26,10 @@ router.register('albums/', AlbumViewSet)
 
 urlpatterns = [
     # Admin
-    path('admin/', admin.site.urls),
+    path('admin', admin.site.urls),
 
     # API
-    path('api/'), include(router.urls),
+    path('api/', include(router.urls)),
 
     # Apps
     path('solos/', include('solos.urls')),
