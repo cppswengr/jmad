@@ -16,3 +16,5 @@ class AlbumViewSet(viewsets.GenericViewSet,
                    mixins.RetrieveModelMixin):
 
     queryset = Album.objects.all()
+
+    serializer_class = AlbumSerializer

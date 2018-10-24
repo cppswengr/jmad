@@ -6,3 +6,4 @@ from .models import Album
 class AlbumSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Album
+        fields = '__all__'

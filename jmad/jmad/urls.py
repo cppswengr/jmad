@@ -22,7 +22,7 @@ from albums.views import AlbumViewSet
 from rest_framework import routers
 
 router = routers.SimpleRouter()
-router.register('albums/', AlbumViewSet)
+router.register('albums', AlbumViewSet)
 
 urlpatterns = [
     # Admin
