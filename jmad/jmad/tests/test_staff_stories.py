@@ -1,8 +1,7 @@
 from django.test import LiveServerTestCase
 from django.contrib.auth import get_user_model
 from selenium import webdriver
-from solos.models import Solo
-from albums.models import Album, Track
+from .utils import create_test_data
 
 
 class StaffTestCase(LiveServerTestCase):
@@ -19,58 +18,7 @@ class StaffTestCase(LiveServerTestCase):
                 password='august'
             )
 
-        self.album1 = Album.objects.create(
-            name='My Favorite Things', slug='my-favorite-things'
-        )
-        self.track1 = Track.objects.create(
-            name='My Favorite Things', slug='my-favorite-things',
-            album=self.album1
-        )
-        self.solo1 = Solo.objects.create(
-            instrument='saxophone', artist='John Coltrane',
-            track=self.track1, slug='john-coltrane'
-        )
-
-        self.album2 = Album.objects.create(
-            name='Kind of Blue', slug='kind-of-blue'
-        )
-        self.track2 = Track.objects.create(
-            name='All Blues', slug='all-blues',
-            album=self.album2, track_number=4
-        )
-        self.track4 = Track.objects.create(
-            name='Freddie Freeloader',
-            album=self.album2,
-            track_number=2
-        )
-        self.track5 = Track.objects.create(
-            name='Blue in Green',
-            album=self.album2,
-            track_number=3
-        )
-        self.solo2 = Solo.objects.create(
-            instrument='saxophone', artist='Cannonball Adderley',
-            track=self.track2, start_time='4:05', end_time='6:04',
-            slug='cannonball-adderley'
-        )
-
-        self.solo4 = Solo.objects.create(
-            instrument='trumpet', artist='Miles Davis',
-            track=self.track2, slug='miles-davis',
-            start_time='1:46', end_time='4:04'
-        )
-
-        self.album3 = Album.objects.create(
-            name='Know What I Mean?', slug='know-what-i-mean'
-        )
-        self.track3 = Track.objects.create(
-            name='Waltz for Debby', slug='waltz-for-debby',
-            album=self.album3
-        )
-        self.solo3 = Solo.objects.create(
-            instrument='saxophone', artist='Cannonball Adderley',
-            track=self.track3, slug='cannonball-adderley'
-        )
+        create_test_data()
 
     def tearDown(self):
         self.browser.quit()
