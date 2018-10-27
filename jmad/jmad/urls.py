@@ -29,7 +29,7 @@ router.register('solos', SoloViewSet)
 
 urlpatterns = [
     # Admin
-    path('admin', admin.site.urls),
+    path('admin/', admin.site.urls),
 
     # API
     path('api/', include(router.urls)),
