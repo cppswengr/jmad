@@ -23,7 +23,7 @@ class SoloAPITestCase(APITestCase):
         Test that we can create a solo
         """
         post_data = {
-            'track': '/api/tracks/2/',
+            'track': '/api/tracks/1/',
             'artist': 'John Coltrane',
             'instrument': 'saxophone',
             'start_time': '0:24',

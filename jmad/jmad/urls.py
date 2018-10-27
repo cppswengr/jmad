@@ -18,12 +18,14 @@ from django.contrib import admin
 from django.urls import path
 # from solos.views import index, SoloDetailView
 from albums.views import AlbumViewSet, TrackViewSet
+from solos.views import SoloViewSet
 
 from rest_framework import routers
 
 router = routers.SimpleRouter()
 router.register('albums', AlbumViewSet)
 router.register('tracks', TrackViewSet)
+router.register('solos', SoloViewSet)
 
 urlpatterns = [
     # Admin
